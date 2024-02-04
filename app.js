@@ -27,7 +27,9 @@ app.use('/v1', routes);
     const db = await userCollection();
    })();
 
-
+app.listen(app.get('PORT'), ()=>{
+    console.log(`Server listen to port: ${app.get('PORT')}` );
+})
 
 
 export default app;
