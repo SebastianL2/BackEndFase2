@@ -1,6 +1,6 @@
 import { UserModel } from './model.js'
 import { validateVideo, validatePartialVideo } from './schema.js'
-
+import { uploadFiles } from '../../services/cloudinary/index.js';
 export class VideoController {
   static async getAll (req, res) {
     const { genre } = req.query
@@ -15,18 +15,25 @@ export class VideoController {
     res.status(404).json({ message: 'user not found' })
   }
 
-  static async create (req, res) {
-    const result = validateVideo(req.body)
+  static async create(req, res) {
+    console.log(req.body);
+    console.log(req.files);
 
+    const uploadedData = await uploadFiles(req.files);
+    console.log("se ha subido el video:", uploadedData);
+
+    const result = validateVideo(req.body);
     if (!result.success) {
-    // 422 Unprocessable Entity
-      return res.status(400).json({ error: JSON.parse(result.error.message) })
+        // 422 Unprocessable Entity
+        return res.status(400).json({ error: JSON.parse(result.error.message) });
     }
 
-    const newUser = await UserModel.create({ input: result.data })
-
-    res.status(201).json(newUser)
-  }
+    // Guardar la propiedad 'url' de uploadedData en result
+    result.url = uploadedData;
+    console.log("resulti:", result)
+    const newUser = await UserModel.create({ input: result.data });
+    res.status(201).json(newUser);
+}
 
   static async delete (req, res) {
     const { id } = req.params

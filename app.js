@@ -14,6 +14,10 @@ const corsOptions = {
     credentials: true,
 }
 dotenv.config()
+
+app.use(fileUpload({
+    useTempFiles : false
+}));
 app.set('PORT', process.env.PORT)
 mongoose.set('strictQuery', false);
 app.use(express.json())

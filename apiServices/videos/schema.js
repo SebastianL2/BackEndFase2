@@ -17,25 +17,19 @@ const videoSchema = z.object({
     invalid_type_error: 'Publication date must be a string',
     required_error: 'Publication date is required.'
   }),
-  isPublic: z.boolean().default(false),
+  isPublic: z.string(),
   uploader: z.string(), // ID del usuario que subió el vídeo
-  comments: z.array(z.string()), // Array de IDs de comentarios
-  likes: z.array(z.string()), // Array de IDs de usuarios que dieron like
-  year: z.number().int().min(1900).max(2024),
+  year: z.string(),
   director: z.string(),
-  duration: z.number().int().positive(),
-  rate: z.number().min(0).max(10).default(5),
+  duration: z.string(),
+  rate: z.string().min(0).max(10).default(5),
   poster: z.string().url({
     message: 'Poster must be a valid URL'
   }),
-  genre: z.array(
-    z.enum(['Action', 'Adventure', 'Crime', 'Comedy', 'Drama', 'Fantasy', 'Horror', 'Thriller', 'Sci-Fi']),
-    {
-      required_error: 'Video genre is required.',
-      invalid_type_error: 'Video genre must be an array of enum Genre'
-    }
-  )
-})
+  genre: z.string(),
+  url: z.string().optional(),
+  videoFile: z.unknown() 
+});
 
 export function validateVideo (input) {
   return videoSchema.safeParse(input)
