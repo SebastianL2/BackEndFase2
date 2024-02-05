@@ -1,6 +1,11 @@
 # IMPORTANTE : LA DUCMENTACION DE LLA API SE ENCUENTRA EN:
 - **api.http**
 - **swagger.yaml**
+```bash
+set NODE_OPTIONS=--experimental-vm-modules npx jest
+```
+# 2. Para correr los test:
+
 
 
 
