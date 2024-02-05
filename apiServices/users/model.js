@@ -1,5 +1,6 @@
 import client from '../../database/mongoDb/data.js'
 import { server, mongoDb, logger } from '../../config/production.js';
+import bcrypt from 'bcryptjs'
 async function connect () {
   try {
     await client.connect()
@@ -38,10 +39,11 @@ export class UserModel {
   }
 
   static async create ({ input }) {
+    console.log("input:", input)
     const db = await connect()
-
+    
     const { insertedId } = await db.insertOne(input)
-
+    
     return {
       id: insertedId,
       ...input

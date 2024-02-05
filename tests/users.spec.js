@@ -1,6 +1,6 @@
 import request from "supertest";
 import app from "../src/app";
-
+// set NODE_OPTIONS=--experimental-vm-modules npx jest
 
 describe("GET /users", () => {
     test("should respond with a 200 status code", async () => {
