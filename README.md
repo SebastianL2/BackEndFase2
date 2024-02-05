@@ -6,7 +6,7 @@
 # 2. Para correr los test:
 
 ```bash
-set NODE_OPTIONS=--experimental-vm-modules npx jest
+set NODE_OPTIONS=--experimental-vm-modules ;  npx jest
 ```
 
 
