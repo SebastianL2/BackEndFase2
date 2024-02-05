@@ -1,8 +1,8 @@
 # IMPORTANTE : LA DCUMENTACION DE LA API SE ENCUENTRA EN:
-- **api.http**
+- **api.http**:  Recomiendo esta ya que se peude impementar todos los metodos directamente con la extencion de : REST Client v0.25.1 Huachao Mao
 - **swagger.yaml**
 
-S
+
 # 2. Para correr los test:
 
 ```bash
