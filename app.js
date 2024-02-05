@@ -22,13 +22,13 @@ app.set('PORT', process.env.PORT)
 mongoose.set('strictQuery', false);
 app.use(express.json())
 app.use(cors(corsOptions))
-app.use('/v1', routes);
+app.use('/api/v1', routes);
 (async () => {
     const db = await userCollection();
    })();
 
 app.listen(app.get('PORT'), ()=>{
-    console.log(`Server listen to port: ${app.get('PORT')}` );
+    console.log(`Server listen too port: ${app.get('PORT')}` );
 })
 
 

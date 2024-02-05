@@ -6,5 +6,5 @@ import auth from './auth.js'
 const router = Router();
 router.use('/users', userRouter);
 router.use('/videos', videosRouter)
-
+// set NODE_OPTIONS=--experimental-vm-modules npx jest
 export default router;
