@@ -6,6 +6,7 @@ export const videosRouter = Router()
 
 videosRouter.get('/',verifyToken, VideoController.getAll)
 videosRouter.get('/privates',verifyToken, VideoController.getByPrivates)
+
 videosRouter.get('/publics', VideoController.getByPublics)
 videosRouter.post('/',verifyToken, VideoController.create)
 videosRouter.get('/:id', VideoController.getById)

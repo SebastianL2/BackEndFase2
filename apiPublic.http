@@ -1,0 +1,124 @@
+
+###  getAll Users con POST
+GET https://back-end-fase2.vercel.app/v1/users
+
+### Crear un User Resgitrandose con POST
+POST https://back-end-fase2.vercel.app/v1/users/signUp/
+Content-Type: application/json
+
+{
+  "username": "Jorgiño32",
+  "email": "wills@example.com",
+  "password": "12345S#",
+  "registeredAt": "2024-02-05T12:00:00Z",
+  "role": "user"
+}
+
+### Iniciar Sesion
+POST https://back-end-fase2.vercel.app/v1/users/signIn/
+Content-Type: application/json
+
+{
+"email": "jorgi@example.com",
+"password": "Password123!"
+}
+
+###
+# Obtener un usuario por su ID
+###
+GET https://back-end-fase2.vercel.app/v1/users/65c096976a9f1af4795034a2
+
+### Eliminar usuario por ID
+DELETE https://back-end-fase2.vercel.app/v1/users/:id
+
+### Actualizar usuario por ID
+PATCH https://back-end-fase2.vercel.app/v1/users/:id
+Content-Type: application/json
+
+{
+  "username": "nuevo_nombre_de_usuario",
+  "email": "nuevo_email@example.com",
+  "password": "NuevaPassword123!",
+  "registeredAt": "2024-02-05T12:00:00Z",
+  "role": "admin"
+}
+
+
+### obtener Videos Privados solo si estas registrado
+GET https://back-end-fase2.vercel.app/v1/videos/privates
+Content-Type: application/json
+x-access-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1YzA5Njk3NmE5ZjFhZjQ3OTUwMzRhMiIsImlhdCI6MTcwNzEyMDI4MCwiZXhwIjoxNzA3MjA2NjgwfQ.euxtZaG1Ivxc0YBpuNjH01WuFX6LoegRIlvpM8UkuZo
+
+### obtener Videos Publicos
+GET https://back-end-fase2.vercel.app/v1/videos/publics
+
+
+###
+# Obtener todos los videos
+###
+
+GET https://back-end-fase2.vercel.app/v1/videos
+x-access-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1YzA5Njk3NmE5ZjFhZjQ3OTUwMzRhMiIsImlhdCI6MTcwNzEyMDI4MCwiZXhwIjoxNzA3MjA2NjgwfQ.euxtZaG1Ivxc0YBpuNjH01WuFX6LoegRIlvpM8UkuZo
+
+
+
+###
+# Crear un nuevo video Recomendable Hacerlo desde Postman o otro con FormDAta
+###
+POST https://back-end-fase2.vercel.app/v1/videos
+Content-Type: multipart/form-data
+x-access-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1YzA5Njk3NmE5ZjFhZjQ3OTUwMzRhMiIsImlhdCI6MTcwNzEyMDI4MCwiZXhwIjoxNzA3MjA2NjgwfQ.euxtZaG1Ivxc0YBpuNjH01WuFX6LoegRIlvpM8UkuZo
+
+{
+  "title": "Título del video",
+  "description": "Descripción del video",
+  "credits": "Créditos del video",
+  "publicationDate": "2023-09-15T14:30:00Z",
+  "isPublic": "true",
+  "uploader": "ID_del_usuario_que_subió_el_video",
+  "year": "2023",
+  "director": "Director del video",
+  "duration": "120",
+  "rate": "8",
+  "poster": "https://example.com/video-poster.jpg",
+  "genre": "Adventure",
+  "url": "https://example.com/video-url",
+  "videoFile":"link imane"
+}
+
+###
+# Obtener un video por su ID
+###
+
+GET https://back-end-fase2.vercel.app/v1/videos/:id
+
+
+###
+# Eliminar un video por su ID
+###
+
+DELETE https://back-end-fase2.vercel.app/v1/videos/:id
+x-access-token: token
+
+###
+# Actualizar un video por su ID
+###
+
+PATCH https://back-end-fase2.vercel.app/v1/videos/:id
+Content-Type: application/json
+x-access-token: token
+
+{
+  "title": "Nuevo título del video",
+  "description": "Nueva descripción del video",
+  "credits": "Nuevos créditos del video",
+  "publicationDate": "2023-09-15T14:30:00Z",
+  "isPublic": "true",
+  "year": "2023",
+  "director": "Nuevo director del video",
+  "duration": "150",
+  "rate": "9",
+  "poster": "https://example.com/new-video-poster.jpg",
+  "genre": "Action",
+  "url": "https://example.com/new-video-url"
+}
