@@ -1,3 +1,9 @@
+# IMPORTANTE : LA DUCMENTACION DE LLA API SE ENCUENTRA EN:
+- **api.http**
+- **swagger.yaml**
+
+
+
 # Configuración de entorno para una aplicación Node.js
 
 En esta aplicación Node.js, se utilizan variables de entorno para configurar aspectos como el puerto del servidor y la conexión a la base de datos MongoDB. Esto proporciona flexibilidad y seguridad al separar la configuración sensible del código fuente.

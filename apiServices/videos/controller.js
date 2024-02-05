@@ -15,6 +15,18 @@ export class VideoController {
     res.status(404).json({ message: 'user not found' })
   }
 
+  static async getByPrivates (req, res) {
+    const { id } = req.params
+    const user = await UserModel.getByPrivates({  public_private: 'false' })
+    if (user) return res.json(user)
+    res.status(404).json({ message: 'user not found' })
+  }
+  static async getByPublics (req, res) {
+    
+    const user = await UserModel.getByPrivates({  public_private: 'true' })
+    if (user) return res.json(user)
+    res.status(404).json({ message: 'user not found' })
+  }
   static async create (req, res) {
     console.log(req.body)
     console.log(req.files)

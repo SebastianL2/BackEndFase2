@@ -1,225 +1,316 @@
-openapi: 3.0.1
+swagger: '2.0'
 info:
-  title: API para gestion de Videos
-  description: Esta API se encarga de manejar la información de videos
-  version: 1.0.0
-servers:
-  - url: https://vercel.com/sebastianl2/back-end-fase2
-tags:
-  - name: clientes
-    description: Maneja la información de los clientes de MoonTravels
-
+  title: API Documentation
+  version: '1.0'
+host: localhost:4500
+schemes:
+  - http
 paths:
-  /:
-    post:
-      tags:
-        - clientes
-      summary: Inserta información de nuevo cliente en la base de datos
-      parameters:
-        - $ref: '#/components/parameters/token'
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/BodyClientesPost'
-        required: true
-      responses:
-        '200':
-          description: (OK) La información del cliente se guardó correctamente
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ExitoClientesPost'
-        '400':
-          $ref: '#/components/responses/BadRequest'
-        '401':
-          $ref: '#/components/responses/Unauthorized'
-        '404':
-          $ref: '#/components/responses/NotFound'
-        '500':
-          $ref: '#/components/responses/ServerError'
-
-  /{idCliente}:
+  /v1/users:
     get:
-      tags:
-        - clientes
-      summary: Obtiene la información de la base de datos de un cliente.
+      summary: Obtener todos los usuarios
+      description: Obtiene todos los usuarios.
+      produces:
+        - application/json
+      responses:
+        200:
+          description: OK
+    post:
+      summary: Crear un nuevo usuario registrándose
+      description: Crea un nuevo usuario.
+      consumes:
+        - application/json
+      produces:
+        - application/json
       parameters:
-        - $ref: '#/components/parameters/token'
-        - name: idCliente
-          in: path
-          description: Identificador del cliente a obtener
+        - in: body
+          name: user
+          description: Datos del usuario
           required: true
           schema:
-            type: string
+            type: object
+            properties:
+              username:
+                type: string
+              email:
+                type: string
+              password:
+                type: string
+              registeredAt:
+                type: string
+              role:
+                type: string
+            example:
+              username: Jorgiño32
+              email: wills@example.com
+              password: 12345S#
+              registeredAt: '2024-02-05T12:00:00Z'
+              role: user
       responses:
-        '200':
-          description: (OK) La información del cliente se obtuvo correctamente
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ExitoClientesGet'
-        '400':
-          $ref: '#/components/responses/BadRequest'
-        '401':
-          $ref: '#/components/responses/Unauthorized'
-        '404':
-          $ref: '#/components/responses/NotFound'
-        '500':
-          $ref: '#/components/responses/ServerError'
-
-  /actualiza/{idCliente}:
-    put:
-      tags:
-        - clientes
-      summary: Actualiza la información de un cliente en la base de datos.
+        200:
+          description: OK
+  /v1/users/{id}:
+    get:
+      summary: Obtener un usuario por su ID
+      description: Obtiene un usuario por su ID.
+      produces:
+        - application/json
       parameters:
-        - $ref: '#/components/parameters/token'
-        - name: idCliente
-          in: path
-          description: Identificador del cliente a obtener
+        - in: path
+          name: id
+          type: string
           required: true
-          schema:
-            type: string
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/BodyClientesPut'
       responses:
-        '200':
-          description: (OK) La información del cliente se actualizó correctamente
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ExitoClientesPost'
-        '400':
-          $ref: '#/components/responses/BadRequest'
-        '401':
-          $ref: '#/components/responses/Unauthorized'
-        '404':
-          $ref: '#/components/responses/NotFound'
-        '500':
-          $ref: '#/components/responses/ServerError'
-
-  /elimina/{idCliente}:
+        200:
+          description: OK
     delete:
-      tags:
-        - clientes
-      summary: Elimina logicamente a un cliente.
+      summary: Eliminar usuario por su ID
+      description: Elimina un usuario por su ID.
+      produces:
+        - application/json
       parameters:
-        - $ref: '#/components/parameters/token'
-        - name: idCliente
-          in: path
-          description: Identificador del cliente a obtener
+        - in: path
+          name: id
+          type: string
+          required: true
+      responses:
+        200:
+          description: OK
+    patch:
+      summary: Actualizar usuario por su ID
+      description: Actualiza un usuario por su ID.
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: id
+          type: string
+          required: true
+        - in: body
+          name: user
+          description: Datos del usuario a actualizar
           required: true
           schema:
-            type: string
+            type: object
+            properties:
+              username:
+                type: string
+              email:
+                type: string
+              password:
+                type: string
+              registeredAt:
+                type: string
+              role:
+                type: string
+            example:
+              username: nuevo_nombre_de_usuario
+              email: nuevo_email@example.com
+              password: NuevaPassword123!
+              registeredAt: '2024-02-05T12:00:00Z'
+              role: admin
       responses:
-        '200':
-          description: (OK) El cliente se eliminó correctamente
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ExitoClientesPost'
-        '400':
-          $ref: '#/components/responses/BadRequest'
-        '401':
-          $ref: '#/components/responses/Unauthorized'
-        '404':
-          $ref: '#/components/responses/NotFound'
-        '500':
-          $ref: '#/components/responses/ServerError'
-
-components:
-  responses:
-    Unauthorized:
-      description: (Unauthorized) No hay autorización para llamar al servicio
-    NotFound:
-      description: (NotFound) No se encontró información
-    BadRequest:
-      description: (Bad Request) Los datos enviados son incorrectos o hay datos obligatorios no enviados
-    ServerError:
-      description: Error en servidor
-  parameters:
-    token:
-      in: header
-      name: token
-      description: Token de autenticación en API.
-      required: true
-      schema:
-        type: string
-  schemas:
-    BodyClientesPost:
-      type: object
-      properties:
-        primer_nombre:
+        200:
+          description: OK
+  /v1/users/signIn:
+    post:
+      summary: Iniciar Sesión
+      description: Inicia sesión con las credenciales del usuario.
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: credentials
+          description: Credenciales del usuario
+          required: true
+          schema:
+            type: object
+            properties:
+              email:
+                type: string
+              password:
+                type: string
+            example:
+              email: jorgi@example.com
+              password: Password123!
+      responses:
+        200:
+          description: OK
+  /v1/videos/privates:
+    get:
+      summary: Obtener Videos Privados
+      description: Obtiene videos privados solo si el usuario está autenticado.
+      produces:
+        - application/json
+      parameters:
+        - in: header
+          name: x-access-token
           type: string
-          description: Primer nombre del cliente
-        segundo_nombre:
+          required: true
+      responses:
+        200:
+          description: OK
+  /v1/videos:
+    get:
+      summary: Obtener todos los videos
+      description: Obtiene todos los videos.
+      produces:
+        - application/json
+      responses:
+        200:
+          description: OK
+    post:
+      summary: Crear un nuevo video
+      description: Crea un nuevo video.
+      consumes:
+        - multipart/form-data
+      produces:
+        - application/json
+      parameters:
+        - in: header
+          name: x-access-token
           type: string
-          description: Segundo nombre del cliente
-        apellido_paterno:
+          required: true
+        - in: formData
+          name: title
           type: string
-          description: Apellido paterno del cliente
-        apellido_materno:
+        - in: formData
+          name: description
           type: string
-          description: Apellido materno del cliente
-        correo_electronico:
+        - in: formData
+          name: credits
           type: string
-          description: Email del cliente
-    ExitoClientesPost:
-      type: object
-      properties:
-        respuesta:
-          type: integer
-          enum: [1]
-          description: Bandera que nos dice si la llamada al servicio fue satisfactoria
-        idCliente:
-          type: integer
-          enum: [233]
-          description: Id correspondiente al cliente
-    ExitoClientesGet:
-      type: object
-      properties:
-        respuesta:
-          type: integer
-          enum: [1]
-          description: Bandera que nos dice si la llamada al servicio fue satisfactoria
-        primer_nombre:
+        - in: formData
+          name: publicationDate
           type: string
-          description: Primer nombre del cliente
-        segundo_nombre:
+        - in: formData
+          name: isPublic
           type: string
-          description: Segundo nombre del cliente
-        apellido_paterno:
+        - in: formData
+          name: uploader
           type: string
-          description: Apellido paterno del cliente
-        apellido_materno:
+        - in: formData
+          name: year
           type: string
-          description: Apellido materno del cliente
-        correo_electronico:
+        - in: formData
+          name: director
           type: string
-          description: Email del cliente
-        contrasenia:
+        - in: formData
+          name: duration
           type: string
-          description: Contraseña de ingreso al sistema del cliente
-    BodyClientesPut:
-      type: object
-      properties:
-        primer_nombre:
+        - in: formData
+          name: rate
           type: string
-          description: Primer nombre del cliente
-        segundo_nombre:
+        - in: formData
+          name: poster
           type: string
-          description: Segundo nombre del cliente
-        apellido_paterno:
+        - in: formData
+          name: genre
           type: string
-          description: Apellido paterno del cliente
-        apellido_materno:
+        - in: formData
+          name: url
           type: string
-          description: Apellido materno del cliente
-        correo_electronico:
+        - in: formData
+          name: videoFile
           type: string
-          description: Email del cliente
-  
+      responses:
+        200:
+          description: OK
+  /v1/videos/{id}:
+    get:
+      summary: Obtener un video por su ID
+      description: Obtiene un video por su ID.
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: id
+          type: string
+          required: true
+      responses:
+        200:
+          description: OK
+    delete:
+      summary: Eliminar un video por su ID
+      description: Elimina un video por su ID.
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: id
+          type: string
+          required: true
+        - in: header
+          name: x-access-token
+          type: string
+          required: true
+      responses:
+        200:
+          description: OK
+    patch:
+      summary: Actualizar un video por su ID
+      description: Actualiza un video por su ID.
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: id
+          type: string
+          required: true
+        - in: header
+          name: x-access-token
+          type: string
+          required: true
+        - in: body
+          name: video
+          description: Datos del video a actualizar
+          required: true
+          schema:
+            type: object
+            properties:
+              title:
+                type: string
+              description:
+                type: string
+              credits:
+                type: string
+              publicationDate:
+                type: string
+              isPublic:
+                type: string
+              year:
+                type: string
+              director:
+                type: string
+              duration:
+                type: string
+              rate:
+                type: string
+              poster:
+                type: string
+              genre:
+                type: string
+              url:
+                type: string
+            example:
+              title: Nuevo título del video
+              description: Nueva descripción del video
+              credits: Nuevos créditos del video
+              publicationDate: '2023-09-15T14:30:00Z'
+              isPublic: true
+              year: '2023'
+              director: Nuevo director del video
+              duration: '150'
+              rate: '9'
+              poster: https://example.com/new-video-poster.jpg
+              genre: Action
+              url: https://example.com/new-video-url
+      responses:
+        200:
+          description: OK

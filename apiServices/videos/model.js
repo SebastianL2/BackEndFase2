@@ -1,5 +1,7 @@
 import client from '../../database/mongoDb/data.js'
 import { server, mongoDb, logger } from '../../config/production.js';
+import { ObjectId } from 'mongodb';
+
 async function connect () {
   try {
     await client.connect()
@@ -32,11 +34,18 @@ export class UserModel {
   }
 
   static async getById ({ id }) {
+     
     const db = await connect()
     const objectId = new ObjectId(id)
     return db.findOne({ _id: objectId })
   }
-
+ 
+  
+  static async getByPrivates ({ public_private }) {
+     console.log(public_private)
+    const db = await connect()
+    return db.find({ isPublic: public_private }).toArray();
+  }
   static async create ({ input }) {
     const db = await connect()
 

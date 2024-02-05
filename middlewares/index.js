@@ -1,6 +1,5 @@
 import createError from 'http-errors';
-import * as authJwt from "./authJwt.js";
-import * as verifySignup from "./verifySignup.js";
+
 export function error404Handler(req, res, next) {
   next(createError(404));
 }
@@ -16,4 +15,3 @@ export function errorHandler(err, req, res, _next) {
   res.send({ message: err.message });
 }
 
-export { authJwt, verifySignup };

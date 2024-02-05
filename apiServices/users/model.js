@@ -1,6 +1,8 @@
 import client from '../../database/mongoDb/data.js'
 import { server, mongoDb, logger } from '../../config/production.js';
-import bcrypt from 'bcryptjs'
+import bcrypt from 'bcrypt'
+import { ObjectId } from 'mongodb';
+
 async function connect () {
   try {
     await client.connect()
@@ -33,22 +35,45 @@ export class UserModel {
   }
 
   static async getById ({ id }) {
+   
     const db = await connect()
     const objectId = new ObjectId(id)
     return db.findOne({ _id: objectId })
   }
 
+  static async getByEmail({ email }) {
+
+    const db = await connect();
+    return db.findOne({ email: email });
+  }
+
+  static async validatePassword( password,recivedPassword ) {
+
+   
+    return await bcrypt.compare(recivedPassword,password)
+  }
+
   static async create ({ input }) {
     console.log("input:", input)
     const db = await connect()
+    const salt = await bcrypt.genSalt(10)
+    const hashedPassword = await bcrypt.hash(input.password, salt);
+      
     
-    const { insertedId } = await db.insertOne(input)
+    const inputWithHashedPassword = {
+      ...input,
+      password: hashedPassword
+    };
+    
+  
+    const { insertedId } = await db.insertOne(inputWithHashedPassword);
     
     return {
       id: insertedId,
-      ...input
+      ...inputWithHashedPassword
     }
   }
+
 
   static async delete ({ id }) {
     const db = await connect()
