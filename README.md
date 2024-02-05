@@ -1,12 +1,13 @@
-# IMPORTANTE : LA DUCMENTACION DE LLA API SE ENCUENTRA EN:
+# IMPORTANTE : LA DCUMENTACION DE LA API SE ENCUENTRA EN:
 - **api.http**
 - **swagger.yaml**
+
+S
+# 2. Para correr los test:
+
 ```bash
 set NODE_OPTIONS=--experimental-vm-modules npx jest
 ```
-# 2. Para correr los test:
-
-
 
 
 # Configuración de entorno para una aplicación Node.js
