@@ -19,8 +19,8 @@ POST https://back-end-fase2.vercel.app/v1/users/signIn/
 Content-Type: application/json
 
 {
-"email": "jorgi@example.com",
-"password": "Password123!"
+"email": "wills@example.com",
+"password": "12345S#"
 }
 
 ###
