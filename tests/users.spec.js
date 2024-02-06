@@ -1,5 +1,5 @@
 import request from "supertest";
-import app from "../app";
+import user from "../apiServices/users/route.js";
 // set NODE_OPTIONS=--experimental-vm-modules npx jest
 
 describe('GET /v1/users', () => {
