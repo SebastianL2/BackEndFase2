@@ -150,6 +150,8 @@ paths:
         - name: x-access-token
           in: header
           required: true
+          schema:
+            type: string
       requestBody:
         required: true
         content:
