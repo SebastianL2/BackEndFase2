@@ -28,18 +28,17 @@ export class VideoController {
     res.status(404).json({ message: 'user not found' })
   }
   static async create (req, res) {
-    console.log(req.body)
-    console.log(req.files)
-    const uploadedData = await uploadFiles(req.files);
-    console.log("se ha subido el video:",uploadedData)
+
+    const uploadedData = await uploadFiles(req.files)
+
     const result = validateVideo(req.body)
 
     if (!result.success) {
     // 422 Unprocessable Entity
       return res.status(400).json({ error: JSON.parse(result.error.message) })
     }
-
-    const newUser = await UserModel.create({ input: result.data })
+     const cloudUrl= uploadedData.secure_url;
+    const newUser = await UserModel.create({ input: result.data,cloudUrl})
 
     res.status(201).json(newUser)
   }

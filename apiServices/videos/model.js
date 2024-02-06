@@ -46,11 +46,18 @@ export class UserModel {
     const db = await connect()
     return db.find({ isPublic: public_private }).toArray();
   }
-  static async create ({ input }) {
+
+  static async create ({ input,cloudUrl }) {
     const db = await connect()
 
-    const { insertedId } = await db.insertOne(input)
-
+    
+    const inputWithHashedPassword = {
+      ...input,
+      url: cloudUrl
+    };
+    
+    const { insertedId } = await db.insertOne(inputWithHashedPassword)
+    
     return {
       id: insertedId,
       ...input
