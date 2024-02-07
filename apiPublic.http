@@ -47,7 +47,7 @@ Content-Type: application/json
 ### obtener Videos Privados solo si estas registrado
 GET https://back-end-fase2.vercel.app/v1/videos/privates
 Content-Type: application/json
-x-access-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1YzA5Njk3NmE5ZjFhZjQ3OTUwMzRhMiIsImlhdCI6MTcwNzEyMDI4MCwiZXhwIjoxNzA3MjA2NjgwfQ.euxtZaG1Ivxc0YBpuNjH01WuFX6LoegRIlvpM8UkuZo
+x-access-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1YzMyMGE4ZGY5Y2I5ZWIyYzVkY2RjMSIsImlhdCI6MTcwNzI4NjcwNiwiZXhwIjoxNzA3MzczMTA2fQ.6ULUOh63mA3CKu71_VfQ_gYstK3M9PwejPRC7O4WvBo
 
 ### obtener Videos Publicos
 GET https://back-end-fase2.vercel.app/v1/videos/publics
@@ -58,7 +58,7 @@ GET https://back-end-fase2.vercel.app/v1/videos/publics
 ###
 
 GET https://back-end-fase2.vercel.app/v1/videos
-x-access-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1YzA5Njk3NmE5ZjFhZjQ3OTUwMzRhMiIsImlhdCI6MTcwNzEyMDI4MCwiZXhwIjoxNzA3MjA2NjgwfQ.euxtZaG1Ivxc0YBpuNjH01WuFX6LoegRIlvpM8UkuZo
+x-access-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1YzMyMGE4ZGY5Y2I5ZWIyYzVkY2RjMSIsImlhdCI6MTcwNzI4NjcwNiwiZXhwIjoxNzA3MzczMTA2fQ.6ULUOh63mA3CKu71_VfQ_gYstK3M9PwejPRC7O4WvBo
 
 
 
@@ -67,7 +67,7 @@ x-access-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1YzA5Njk3NmE5ZjF
 ###
 POST https://back-end-fase2.vercel.app/v1/videos
 Content-Type: multipart/form-data
-x-access-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1YzA5Njk3NmE5ZjFhZjQ3OTUwMzRhMiIsImlhdCI6MTcwNzEyMDI4MCwiZXhwIjoxNzA3MjA2NjgwfQ.euxtZaG1Ivxc0YBpuNjH01WuFX6LoegRIlvpM8UkuZo
+x-access-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1YzMyMGE4ZGY5Y2I5ZWIyYzVkY2RjMSIsImlhdCI6MTcwNzI4NjcwNiwiZXhwIjoxNzA3MzczMTA2fQ.6ULUOh63mA3CKu71_VfQ_gYstK3M9PwejPRC7O4WvBo
 
 {
   "title": "Título del video",
