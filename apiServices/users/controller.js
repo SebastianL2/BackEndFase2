@@ -59,7 +59,7 @@ export class UserController {
    
     const passwordValidate =await UserModel.validatePassword( User.password, password )
     if(!passwordValidate) return res.status(401).json({token:null,message:"invalid Password"})
-    console.log("dsde",User._id)
+  
     const token =  Jwt.sign({id: User._id},config.SECRET, {
       expiresIn:86400
     })

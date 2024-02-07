@@ -7,8 +7,8 @@ POST http://localhost:4500/v1/users/signUp/
 Content-Type: application/json
 
 {
-  "username": "Jorgiño32",
-  "email": "wills2@example.com",
+  "username": "Jorgiño444432",
+  "email": "wills322@example.com",
   "password": "123456S#",
   "registeredAt": "2024-02-05T12:00:00Z",
   "role": "user"
@@ -29,7 +29,7 @@ Content-Type: application/json
 GET http://localhost:4500/v1/users/65c096976a9f1af4795034a2
 
 ### Eliminar usuario por ID
-DELETE http://localhost:4500/v1/users/:id
+DELETE http://localhost:4500/v1/users/65c315d483d1c949e8403688
 
 ### Actualizar usuario por ID
 PATCH http://localhost:4500/v1/users/:id

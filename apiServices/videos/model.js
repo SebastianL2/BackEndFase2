@@ -1,11 +1,14 @@
 import client from '../../database/mongoDb/data.js'
 import { server, mongoDb, logger } from '../../config/production.js';
+import { serverTest, mongoDbtest } from '../../config/testPu.js';
+
+const mongitoDb = process.env.NODE_ENV === 'test' ? mongoDbtest : mongoDb;
 import { ObjectId } from 'mongodb';
 
 async function connect () {
   try {
     await client.connect()
-    const database = client.db(mongoDb.dbname)
+    const database = client.db(mongitoDb.dbname)
     return database.collection('video')
   } catch (error) {
     console.error('Error connecting to the database')
@@ -42,7 +45,7 @@ export class UserModel {
  
   
   static async getByPrivates ({ public_private }) {
-     console.log(public_private)
+     
     const db = await connect()
     return db.find({ isPublic: public_private }).toArray();
   }

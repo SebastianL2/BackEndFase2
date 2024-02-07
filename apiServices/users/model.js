@@ -1,12 +1,15 @@
 import client from '../../database/mongoDb/data.js'
 import { server, mongoDb, logger } from '../../config/production.js';
+import { serverTest, mongoDbtest } from '../../config/testPu.js';
+
+const mongitoDb = process.env.NODE_ENV === 'test' ? mongoDbtest : mongoDb;
 import bcrypt from 'bcrypt'
 import { ObjectId } from 'mongodb';
 
 async function connect () {
   try {
     await client.connect()
-    const database = client.db(mongoDb.dbname)
+    const database = client.db(mongitoDb.dbname)
     return database.collection('users')
   } catch (error) {
     console.error('Error connecting to the database')

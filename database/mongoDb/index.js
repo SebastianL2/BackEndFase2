@@ -1,5 +1,4 @@
-//XLDuxKixsZvKO1ve
-//sebas16cely
+
 import { server, mongoDb, logger } from '../../config/production.js';
 
 import mongoose from 'mongoose';
