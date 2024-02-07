@@ -8,8 +8,8 @@ Content-Type: application/json
 
 {
   "username": "Jorgiño32",
-  "email": "wills@example.com",
-  "password": "12345S#",
+  "email": "wills2@example.com",
+  "password": "123456S#",
   "registeredAt": "2024-02-05T12:00:00Z",
   "role": "user"
 }
@@ -19,8 +19,8 @@ POST http://localhost:4500/v1/users/signIn/
 Content-Type: application/json
 
 {
-"email": "jorgi@example.com",
-"password": "Password123!"
+"email": "wills2@example.com",
+"password": "123456S#"
 }
 
 ###

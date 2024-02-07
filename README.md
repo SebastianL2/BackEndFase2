@@ -3,10 +3,17 @@
 - **swagger.yaml**
 
 
+# 1. Para correr la aplicacion:
+
+```bash
+npm start
+```
+
+
 # 2. Para correr los test:
 
 ```bash
-pnpm test
+npm test
 ```
 
 

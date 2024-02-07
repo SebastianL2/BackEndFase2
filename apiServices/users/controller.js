@@ -52,6 +52,7 @@ export class UserController {
   static async signIn (req, res) {
 
     const { email,password } = req.body
+    
     const User =await UserModel.getByEmail( {email} )
     if (!User) return res.status(404).json({ message: 'User not found' })
 

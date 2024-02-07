@@ -54,7 +54,7 @@ export class UserModel {
   }
 
   static async create ({ input }) {
-    console.log("input:", input)
+    
     const db = await connect()
     const salt = await bcrypt.genSalt(10)
     const hashedPassword = await bcrypt.hash(input.password, salt);
