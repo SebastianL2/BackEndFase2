@@ -28,18 +28,59 @@ En esta aplicación Node.js, se utilizan variables de entorno para configurar as
 - **MONGODB_PASSWORD**: Contraseña para la autenticación en la base de datos MongoDB.
 - **MONGODB_CLUSTER**: Nombre del clúster de MongoDB al que se conectará la aplicación.
 - **MONGODB_DBNAME**: Nombre de la base de datos MongoDB que la aplicación utilizará.
-- **MONGODB_HOST**: Host de MongoDB al que se conectará la aplicación.
+- **MONGODB_DBNAME_TEST**: Nombre de la base de datos MongoDB para testeo de pruebabas unitarias que la aplicación utilizará.
 
 Estas variables de entorno se configuran en un archivo `.env` en el directorio raíz del proyecto. Cada vez que la aplicación se inicia, estas variables se cargan desde el archivo `.env` y están disponibles para su uso en el código.
 
 ## Entornos de desarrollo
+### PRODUCCION:
+
+En el entorno de PRODUCCION, se utiliza una configuración diferente para el servidor y la base de datos MongoDB:
+
+```javascript
+import dotenv from 'dotenv';
+dotenv.config();
+export const server = {
+    port: 4500,
+};
+export const mongoDb = {
+    username: process.env.MONGODB_USERNAME,
+    password: process.env.MONGODB_PASSWORD,
+    cluster: process.env.MONGODB_CLUSTER ,
+    dbname: process.env.MONGODB_DBNAME ,
+    host: '',
+};
+export const logger = ':method :url :status :res[content-length] - :response-time ms';
+
+```
+### TESTEO:
+En el entorno de testo, se utiliza una vase de datos MongoDB diferente para no alterar la de origen:
+
+```javascript
+import dotenv from 'dotenv';
+dotenv.config();
+export const serverTest = {
+    port: 4500,
+};
+export const mongoDbtest = {
+    username: process.env.MONGODB_USERNAME,
+    password: process.env.MONGODB_PASSWORD,
+    cluster: process.env.MONGODB_CLUSTER ,
+    dbname: process.env.MONGODB_DBNAME_TEST ,
+    host: '',
+};
+export const logger = ':method :url :status :res[content-length] - :response-time ms';
+
+
+```
+
 
 ### Desarrollo:
 
 En el entorno de desarrollo, se utiliza una configuración diferente para el servidor y la base de datos MongoDB:
 
-- **Puerto del servidor**: 3500
-- **Dominio del servidor**: localhost:3500
+- **Puerto del servidor**: 4500
+- **Dominio del servidor**: localhost:4500
 - **Puerto de MongoDB**: 27017
 - **Host de MongoDB**: localhost
 
@@ -48,8 +89,8 @@ Esta configuración se utiliza para facilitar el desarrollo local y la depuraci�
 ```javascript
 const config = {
     server: {
-      port: 3500,
-      domain: 'localhost:3500',
+      port: 4500,
+      domain: 'localhost:4500',
     },
     mongodb: {
       port: 27017,
