@@ -7,7 +7,7 @@ const app = express()
 import fileUpload from 'express-fileupload'
 import  userCollection  from './database/mongoDb/index.js';
 import routes from './v1/routes/index.js';
-
+import swaggerDocs from './v1/swagger.js';
 
 const corsOptions = {
     origin: true,
@@ -29,6 +29,7 @@ app.use(express.json())
 app.use(cors(corsOptions))
 app.listen(app.get('PORT'), ()=>{
     console.log(`Server listen too port: ${app.get('PORT')}` );
+    swaggerDocs(app, app.get('PORT'));
 })
 
 

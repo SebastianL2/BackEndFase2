@@ -20,6 +20,7 @@ const videoSchema = z.object({
   isPublic: z.string(),
   uploader: z.string(), // ID del usuario que subió el vídeo
   year: z.string(),
+  links: z.number(),
   director: z.string(),
   duration: z.string(),
   rate: z.string().min(0).max(10).default(5),
