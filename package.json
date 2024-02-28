@@ -6,7 +6,8 @@
   "main": "app.js",
   "scripts": {
     "test": "cross-env NODE_ENV=test node --experimental-vm-modules node_modules/jest/bin/jest.js",
-    "start": "cross-env NODE_ENV=production nodemon app.js"
+    "start": "cross-env NODE_ENV=production nodemon app.js",
+    "start:mongo": "nodemon ./serversDB/server-with-mongodb.js"
   },
   "keywords": [],
   "author": "",
