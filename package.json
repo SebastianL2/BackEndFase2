@@ -11,7 +11,7 @@
     "start:mysql": "nodemon ./serversDB/server-with-mysql.js"
   },
   "keywords": [],
-  "author": "",
+  "author": "Sebastian",
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^5.1.1",
