@@ -2,7 +2,9 @@ import { UserModel } from './model.js'
 import { validateVideo, validatePartialVideo } from './schema.js'
 import { uploadFiles } from '../../services/cloudinary/index.js';
 export class VideoController {
-  constructor ({})
+  constructor ({ userModel }){
+    this.userModel = userModel
+  }
     getAll = async (req, res) =>  {
     const { genre } = req.query
     const users = await UserModel.getAll({ genre })
