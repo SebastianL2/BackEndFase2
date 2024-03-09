@@ -18,7 +18,7 @@ async function connect () {
 }
 
 
-export class UserModel {
+export class VideoModel {
   static async getAll ({ genre }) {
     const db = await connect()
 
