@@ -1,4 +1,4 @@
-import { UserModel } from '../apiServices/users/model.js'
+import { UserModel } from '../modelsDB/MongoDb/users.js'
 import config from '../apiServices/users/utils/config.js';
 import jwt from "jsonwebtoken";
 export const verifyToken = async (req, res, next) => {

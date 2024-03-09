@@ -6,7 +6,7 @@ import fileUpload from 'express-fileupload';
 import { createRouter } from './v1/routes/index.js';
 import swaggerDocs from './v1/swagger.js';
 
-export const createApp = ({ userModel }) => {
+export const createApp = ({ userModel,videoModel }) => {
     const app = express();
    
     dotenv.config();
@@ -23,8 +23,8 @@ export const createApp = ({ userModel }) => {
     app.use(express.json());
     app.use(cors(corsOptions));
    
-    app.use('/v1', createRouter({ userModel }));
-    console.log("holas")
+    app.use('/v1', createRouter({ userModel,videoModel }));
+   
     app.listen(app.get('PORT'), () => {
         console.log(`Server listen too port: ${app.get('PORT')}`);
         swaggerDocs(app, app.get('PORT'));

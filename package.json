@@ -7,7 +7,8 @@
   "scripts": {
     "test": "cross-env NODE_ENV=test node --experimental-vm-modules node_modules/jest/bin/jest.js",
     "start": "cross-env NODE_ENV=production nodemon app.js",
-    "start:mongo": "nodemon ./serversDB/server-with-mongodb.js"
+    "start:mongo": "nodemon ./serversDB/server-with-mongodb.js",
+    "start:mysql": "nodemon ./serversDB/server-with-mysql.js"
   },
   "keywords": [],
   "author": "",
@@ -25,6 +26,7 @@
     "mongodb": "^6.3.0",
     "mongoose": "^7.5.3",
     "morgan": "^1.10.0",
+    "mysql2": "^3.9.2",
     "nodemailer": "^6.9.5",
     "stripe": "^13.8.0",
     "swagger-jsdoc": "^6.2.8",

@@ -1,16 +1,26 @@
-import client from '../../database/mongoDb/data.js'
+
 import { server, mongoDb, logger } from '../../config/production.js';
 import { serverTest, mongoDbtest } from '../../config/testPu.js';
+import { MongoClient, ObjectId, ServerApiVersion } from 'mongodb'
+
 
 const mongitoDb = process.env.NODE_ENV === 'test' ? mongoDbtest : mongoDb;
-import bcrypt from 'bcrypt'
-import { ObjectId } from 'mongodb';
+const uri = `mongodb+srv://${mongitoDb.username}:${mongitoDb.password}@${mongitoDb.cluster}/${mongitoDb.dbname}?retryWrites=true&w=majority`;
+       
+// Create a MongoClient with a MongoClientOptions object to set the Stable API version
+const client = new MongoClient(uri, {
+  serverApi: {
+    version: ServerApiVersion.v1,
+    strict: true,
+    deprecationErrors: true
+  }
+})
 
 async function connect () {
   try {
     await client.connect()
     const database = client.db(mongitoDb.dbname)
-    return database.collection('users')
+    return database.collection('video')
   } catch (error) {
     console.error('Error connecting to the database')
     console.error(error)
@@ -19,7 +29,7 @@ async function connect () {
 }
 
 
-export class UserModel {
+export class VideoModel {
   static async getAll ({ genre }) {
     const db = await connect()
 
@@ -38,45 +48,35 @@ export class UserModel {
   }
 
   static async getById ({ id }) {
-   
+     
     const db = await connect()
     const objectId = new ObjectId(id)
     return db.findOne({ _id: objectId })
   }
-
-  static async getByEmail({ email }) {
-
-    const db = await connect();
-    return db.findOne({ email: email });
-  }
-
-  static async validatePassword( password,recivedPassword ) {
-
-   
-    return await bcrypt.compare(recivedPassword,password)
-  }
-
-  static async create ({ input }) {
-    
+ 
+  
+  static async getByPrivates ({ public_private }) {
+     
     const db = await connect()
-    const salt = await bcrypt.genSalt(10)
-    const hashedPassword = await bcrypt.hash(input.password, salt);
-      
+    return db.find({ isPublic: public_private }).toArray();
+  }
+
+  static async create ({ input,cloudUrl }) {
+    const db = await connect()
+
     
     const inputWithHashedPassword = {
       ...input,
-      password: hashedPassword
+      url: cloudUrl
     };
     
-  
-    const { insertedId } = await db.insertOne(inputWithHashedPassword);
+    const { insertedId } = await db.insertOne(inputWithHashedPassword)
     
     return {
       id: insertedId,
-      ...inputWithHashedPassword
+      ...input
     }
   }
-
 
   static async delete ({ id }) {
     const db = await connect()

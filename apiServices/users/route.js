@@ -1,8 +1,8 @@
 import { Router } from 'express'
-
+import express from 'express';
 import {  UserController } from './controller.js'
 export const createUserRouter = ({ userModel }) => {
-    const userRouter = Router()
+    const userRouter = express.Router();
     
     const userController = new UserController ({ userModel })
     

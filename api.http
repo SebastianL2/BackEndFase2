@@ -10,7 +10,7 @@ Content-Type: application/json
   "username": "Jorgiño444432",
   "email": "wills322@example.com",
   "password": "123456S#",
-  "registeredAt": "2024-02-05T12:00:00Z",
+  "registeredAt": "2024-02-05",
   "role": "user"
 }
 
@@ -19,7 +19,7 @@ POST http://localhost:4500/v1/users/signIn/
 Content-Type: application/json
 
 {
-"email": "wills2@example.com",
+"email": "wills322@example.com",
 "password": "123456S#"
 }
 
@@ -47,7 +47,7 @@ Content-Type: application/json
 ### obtener Videos Privados solo si estas registrado
 GET http://localhost:4500/v1/videos/privates
 Content-Type: application/json
-x-access-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1YzA5Njk3NmE5ZjFhZjQ3OTUwMzRhMiIsImlhdCI6MTcwNzEyMDI4MCwiZXhwIjoxNzA3MjA2NjgwfQ.euxtZaG1Ivxc0YBpuNjH01WuFX6LoegRIlvpM8UkuZo
+x-access-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1YzJlYWUxZjQyY2ZjMzlhZTQxYjdhNyIsImlhdCI6MTcwOTEwNjQyMiwiZXhwIjoxNzA5MTkyODIyfQ.pCTel3ynULaLyjINYXctjtjnETcWzyaPACrlpybQ4Hg
 
 ### obtener Videos Publicos
 GET http://localhost:4500/v1/videos/publics

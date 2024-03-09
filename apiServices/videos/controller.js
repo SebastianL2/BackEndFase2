@@ -2,32 +2,33 @@ import { UserModel } from './model.js'
 import { validateVideo, validatePartialVideo } from './schema.js'
 import { uploadFiles } from '../../services/cloudinary/index.js';
 export class VideoController {
-  static async getAll (req, res) {
+  constructor ({})
+    getAll = async (req, res) =>  {
     const { genre } = req.query
     const users = await UserModel.getAll({ genre })
     res.json(users)
   }
 
-  static async getById (req, res) {
+    getById = async (req, res) =>  {
     const { id } = req.params
     const user = await UserModel.getById({ id })
     if (user) return res.json(user)
     res.status(404).json({ message: 'user not found' })
   }
 
-  static async getByPrivates (req, res) {
+    getByPrivates = async (req, res) =>  {
     const { id } = req.params
     const user = await UserModel.getByPrivates({  public_private: 'false' })
     if (user) return res.json(user)
     res.status(404).json({ message: 'user not found' })
   }
-  static async getByPublics (req, res) {
+    getByPublics = async (req, res) =>  {
     
     const user = await UserModel.getByPrivates({  public_private: 'true' })
     if (user) return res.json(user)
     res.status(404).json({ message: 'user not found' })
   }
-  static async create (req, res) {
+    create = async (req, res) =>  {
 
     const uploadedData = await uploadFiles(req.files)
 
@@ -43,7 +44,7 @@ export class VideoController {
     res.status(201).json(newUser)
   }
 
-  static async delete (req, res) {
+    delete = async (req, res) =>  {
     const { id } = req.params
 
     const result = await UserModel.delete({ id })
@@ -55,7 +56,7 @@ export class VideoController {
     return res.json({ message: 'User deleted' })
   }
 
-  static async update (req, res) {
+    update = async (req, res) =>  {
     const result = validatePartialVideo(req.body)
 
     if (!result.success) {

@@ -1,8 +1,13 @@
 import request from 'supertest';
-import app from '../app.js'; 
+import { UserModel } from "../modelsDB/MongoDb/users.js";
+
+import { createApp } from "../app.js";
+
+const app = createApp({ userModel: UserModel });
+
 describe('Pruebas para endpoints de usuarios', () => {
   test('GET /v1/users', async () => {
-    const response = await request(app).get('/v1/users').timeout(10000); // Aumenta el tiempo de espera a 10 segundos (10000 ms)
+    const response = await request(app).get('/v1/users').timeout(10000); 
   expect(response.statusCode).toBe(200);
   
   });

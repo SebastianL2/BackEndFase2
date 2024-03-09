@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import {createUserRouter} from '../../apiServices/users/route.js';
-import { videosRouter } from '../../apiServices/videos/route.js'
+import { createVideoRouter } from '../../apiServices/videos/route.js'
 /**
  * @openapi
  * /v1/users:
@@ -267,10 +267,10 @@ import { videosRouter } from '../../apiServices/videos/route.js'
  *       '200':
  *         description: OK
  */
-export const createRouter = ({ userModel }) =>{
+export const createRouter = ({ userModel,videoModel }) =>{
    
     const router = Router();
     router.use('/users', createUserRouter({ userModel }));
-    router.use('/videos', videosRouter)
+    router.use('/videos', createVideoRouter({ videoModel }))
     return router;
 }
