@@ -54,7 +54,7 @@ export const logger = ':method :url :status :res[content-length] - :response-tim
 
 ```
 ### TESTEO:
-En el entorno de testo, se utiliza una vase de datos MongoDB diferente para no alterar la de origen:
+En el entorno de test, se utiliza una vase de datos MongoDB diferente para no alterar la de origen:
 
 ```javascript
 import dotenv from 'dotenv';
