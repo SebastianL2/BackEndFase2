@@ -7,10 +7,10 @@ export class UserController {
       this.userModel = userModel
     }
     getAll  = async (req, res) => {
-    const { genre } = req.query
-    const Users = await this.userModel.getAll({ genre })
+      console.log('getAll')
+    const Users = await this.userModel.getAll()
     res.json(Users)
-  }
+    }
 
 
 
