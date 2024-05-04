@@ -27,23 +27,24 @@ export class UserModel {
   }
 
   static async getById ({ id }) {
-    const [movies] = await connection.query(
+    const [users] = await connection.query(
       `SELECT * FROM movie WHERE id = UUID_TO_BIN(?);`,
       [id]
     )
 
-    if (movies.length === 0) return null
+    if (users.length === 0) return null
 
-    return movies[0]
+    return users[0]
   }
 
   static async create({ input }) {
     const { username, email, password, registeredAt, role } = input;
   
-
+      const [uuidResult]= await connection.query('SELECT UUID() uuid;')
+      const [{uuid}] = uuidResult
       await connection.query(
-        `INSERT INTO usersdb (username, email, password, registeredAt, role)
-          VALUES (?, ?, ?, ?, ?);`,
+        `INSERT INTO usersdb (ID, username, email, password, registeredAt, role)
+          VALUES (UUID_TO_BIN("${uuid}"),?, ?, ?, ?, ?);`,
         [username, email, password, registeredAt, role]
       );
   
