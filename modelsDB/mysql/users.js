@@ -42,6 +42,7 @@ export class UserModel {
   
       const [uuidResult]= await connection.query('SELECT UUID() uuid;')
       const [{uuid}] = uuidResult
+      console.log("uuid: ", uuid)
       await connection.query(
         `INSERT INTO usersdb (ID, username, email, password, registeredAt, role)
           VALUES (UUID_TO_BIN("${uuid}"),?, ?, ?, ?, ?);`,
