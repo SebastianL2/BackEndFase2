@@ -87,10 +87,24 @@ export class UserModel {
 
 
   static async delete ({ id }) {
-   
+    const [users] = await connection.query(
+      `DELETE * FROM movie WHERE id = UUID_TO_BIN(?);`,
+      [id]
+    )
+
+    if (users.length === 0) return null
+
+    return users[0]
   }
 
   static async update ({ id, input }) {
-   
+    const [users] = await connection.query(
+      `UPDATE * FROM movie WHERE id = UUID_TO_BIN(?);`,
+      [id]
+    )
+
+    if (users.length === 0) return null
+
+    return users[0]
   }
 }
