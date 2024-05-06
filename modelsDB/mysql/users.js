@@ -66,7 +66,7 @@ export class UserModel {
         const connection = await pool.getConnection();
         
         
-        const [rows] = await connection.execute('SELECT * FROM users WHERE email = ?', [email]);
+        const [rows] = await connection.execute('SELECT * FROM usersdb WHERE email = ?', [email]);
         
         
         connection.release();
