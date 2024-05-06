@@ -83,12 +83,10 @@ export class UserModel {
 }
 
 
-
-
-
   static async delete ({ id }) {
+   
     const [users] = await connection.query(
-      `DELETE * FROM movie WHERE id = UUID_TO_BIN(?);`,
+      `DELETE  FROM usersdb WHERE id = UUID_TO_BIN(?);`,
       [id]
     )
 
@@ -102,7 +100,7 @@ export class UserModel {
       `UPDATE * FROM movie WHERE id = UUID_TO_BIN(?);`,
       [id]
     )
-
+    
     if (users.length === 0) return null
 
     return users[0]
