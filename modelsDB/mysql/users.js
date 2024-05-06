@@ -15,7 +15,7 @@ export class UserModel {
   static async getAll () {
 
     const [users] = await connection.query(
-      'SELECT * FROM usersdb;'
+      'SELECT BIN_TO_UUID(id) id, username, email, password,registeredAt,role FROM usersdb;'
     )
 
     return users
@@ -28,7 +28,7 @@ export class UserModel {
 
   static async getById ({ id }) {
     const [users] = await connection.query(
-      `SELECT * FROM movie WHERE id = UUID_TO_BIN(?);`,
+      `SELECT * FROM usersdb WHERE id = UUID_TO_BIN(?);`,
       [id]
     )
 
@@ -45,8 +45,8 @@ export class UserModel {
       console.log("uuid: ", uuid)
       await connection.query(
         `INSERT INTO usersdb (ID, username, email, password, registeredAt, role)
-          VALUES (UUID_TO_BIN("${uuid}"),?, ?, ?, ?, ?);`,
-        [username, email, password, registeredAt, role]
+          VALUES (UUID_TO_BIN(?),?, ?, ?, ?, ?);`,
+        [uuid, username, email, password, registeredAt, role]
       );
   
       
