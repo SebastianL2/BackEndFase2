@@ -62,11 +62,7 @@ export class UserModel {
   }
   static async  getByEmail({ email }) {
     try {
-        
-        const connection = await pool.getConnection();
-        
-        
-        const [rows] = await connection.execute('SELECT * FROM usersdb WHERE email = ?', [email]);
+        const [rows] = await connection.query('SELECT * FROM usersdb WHERE email = ?', [email]);
         
         
         connection.release();
