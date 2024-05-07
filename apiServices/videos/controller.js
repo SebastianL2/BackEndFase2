@@ -37,7 +37,7 @@ export class VideoController {
     const result = validateVideo(req.body)
 
     if (!result.success) {
-    // 422 Unprocessable Entity
+    
       return res.status(400).json({ error: JSON.parse(result.error.message) })
     }
      const cloudUrl= uploadedData.secure_url;
