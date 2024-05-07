@@ -21,7 +21,7 @@ export class UserModel {
     return users
   }
   static async validatePassword( password,recivedPassword ) {
-    console.log("password valdiada", recivedPassword , " data pas: ",password)
+    
    
     return await bcrypt.compare(recivedPassword,password)
   }
