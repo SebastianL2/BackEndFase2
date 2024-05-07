@@ -13,7 +13,7 @@ const connection = await mysql.createConnection(connectionString)
 
 export class UserModel {
   static async getAll ({ genre }) {
-    console.log('getAll')
+    
 
     if (genre) {
       const lowerCaseGenre = genre.toLowerCase()
@@ -27,13 +27,8 @@ export class UserModel {
       // no genre found
       if (genres.length === 0) return []
 
-      // get the id from the first genre result
       const [{ id }] = genres
 
-      // get all movies ids from database table
-      // la query a movie_genres
-      // join
-      // y devolver resultados..
       return []
     }
 
