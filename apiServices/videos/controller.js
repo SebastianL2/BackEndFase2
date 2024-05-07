@@ -19,7 +19,7 @@ export class VideoController {
   }
 
     getByPrivates = async (req, res) =>  {
-    const { id } = req.params
+    
     const user = await this.videoModel.getByPrivates({  public_private: 'false' })
     if (user) return res.json(user)
     res.status(404).json({ message: 'video not found' })
