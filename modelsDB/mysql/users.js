@@ -39,14 +39,16 @@ export class UserModel {
 
   static async create({ input }) {
     const { username, email, password, registeredAt, role } = input;
-  
+    const salt = await bcrypt.genSalt(10)
+    const hashedPassword = await bcrypt.hash(input.password, salt);
+    
       const [uuidResult]= await connection.query('SELECT UUID() uuid;')
       const [{uuid}] = uuidResult
-      console.log("uuid: ", uuid)
+      
       await connection.query(
         `INSERT INTO usersdb (ID, username, email, password, registeredAt, role)
           VALUES (UUID_TO_BIN(?),?, ?, ?, ?, ?);`,
-        [uuid, username, email, password, registeredAt, role]
+        [uuid, username, email, hashedPassword, registeredAt, role]
       );
   
       
