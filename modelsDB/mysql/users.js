@@ -28,7 +28,7 @@ export class UserModel {
 
   static async getById ({ id }) {
     const [users] = await connection.query(
-      `SELECT * FROM usersdb WHERE id = UUID_TO_BIN(?);`,
+      `SELECT BIN_TO_UUID(id) id, username, email, password,registeredAt,role FROM usersdb WHERE id = UUID_TO_BIN(?);`,
       [id]
     )
 
@@ -92,13 +92,17 @@ export class UserModel {
   }
 
   static async update ({ id, input }) {
-    const [users] = await connection.query(
-      `UPDATE * FROM movie WHERE id = UUID_TO_BIN(?);`,
-      [id]
-    )
     
-    if (users.length === 0) return null
+    const columns = Object.keys(input)
+    const values = Object.values(input)
+    const setConsult = columns.map(key => `${key} = ?`).join(", ")
+    
+    const sqlQr = `UPDATE  usersdb SET ${setConsult} WHERE id = UUID_TO_BIN(?);`
+    const [result]= await connection.query(sqlQr,[...values, id])
+    
 
-    return users[0]
+    if (result.length === 0) return null;
+
+    return result[0];
   }
 }
