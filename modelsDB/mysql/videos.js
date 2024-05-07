@@ -11,32 +11,14 @@ const connectionString = process.env.DATABASE_URL ?? DEFAULT_CONFIG
 
 const connection = await mysql.createConnection(connectionString)
 
-export class UserModel {
-  static async getAll ({ genre }) {
-    
+export class VideoModel {
+  static async getAll () {
 
-    if (genre) {
-      const lowerCaseGenre = genre.toLowerCase()
-
-      // get genre ids from database table using genre names
-      const [genres] = await connection.query(
-        'SELECT id, name FROM genre WHERE LOWER(name) = ?;',
-        [lowerCaseGenre]
-      )
-
-      // no genre found
-      if (genres.length === 0) return []
-
-      const [{ id }] = genres
-
-      return []
-    }
-
-    const [movies] = await connection.query(
-      'SELECT title, year, director, duration, poster, rate, BIN_TO_UUID(id) id FROM movie;'
+    const [users] = await connection.query(
+      'SELECT BIN_TO_UUID(id) id, username, email, password,registeredAt,role FROM usersdb;'
     )
 
-    return movies
+    return users
   }
   static async validatePassword( password,recivedPassword ) {
 
@@ -45,28 +27,29 @@ export class UserModel {
   }
 
   static async getById ({ id }) {
-    const [movies] = await connection.query(
-      `SELECT title, year, director, duration, poster, rate, BIN_TO_UUID(id) id
-        FROM movie WHERE id = UUID_TO_BIN(?);`,
+    const [users] = await connection.query(
+      `SELECT BIN_TO_UUID(id) id, username, email, password,registeredAt,role FROM usersdb WHERE id = UUID_TO_BIN(?);`,
       [id]
     )
 
-    if (movies.length === 0) return null
+    if (users.length === 0) return null
 
-    return movies[0]
+    return users[0]
   }
 
   static async create({ input }) {
     const { username, email, password, registeredAt, role } = input;
   
-
+      const [uuidResult]= await connection.query('SELECT UUID() uuid;')
+      const [{uuid}] = uuidResult
+      console.log("uuid: ", uuid)
       await connection.query(
-        `INSERT INTO usersdb (username, email, password, registeredAt, role)
-          VALUES (?, ?, ?, ?, ?);`,
-        [username, email, password, registeredAt, role]
+        `INSERT INTO usersdb (ID, username, email, password, registeredAt, role)
+          VALUES (UUID_TO_BIN(?),?, ?, ?, ?, ?);`,
+        [uuid, username, email, password, registeredAt, role]
       );
   
-      // Obtener el usuario recién creado
+      
       const [usersdb] = await connection.query(
         `SELECT username, email, registeredAt, role
           FROM usersdb
@@ -74,40 +57,52 @@ export class UserModel {
         [email]
       );
   
-      return usersdb[0]; // Retorna el primer usuario (debería ser el recién creado)
+      return usersdb[0]; 
    
   }
   static async  getByEmail({ email }) {
     try {
-        // Conectar a la base de datos
-        const connection = await pool.getConnection();
+        const [rows] = await connection.query('SELECT * FROM usersdb WHERE email = ?', [email]);
         
-        // Consulta SQL para buscar el usuario por su correo electrónico
-        const [rows] = await connection.execute('SELECT * FROM users WHERE email = ?', [email]);
         
-        // Liberar la conexión
         connection.release();
         
         if (rows.length === 0) {
-            return null; // Devuelve null si no se encontró ningún usuario con ese correo electrónico
+            return null; 
         }
         
-        return rows[0]; // Devuelve el primer usuario encontrado
+        return rows[0]; 
     } catch (error) {
         console.error("Error al buscar usuario por email:", error);
-        return null; // Devuelve null en caso de error
+        return null; 
     }
 }
 
 
-
-
-
   static async delete ({ id }) {
    
+    const [users] = await connection.query(
+      `DELETE  FROM usersdb WHERE id = UUID_TO_BIN(?);`,
+      [id]
+    )
+
+    if (users.length === 0) return null
+
+    return users[0]
   }
 
   static async update ({ id, input }) {
-   
+    
+    const columns = Object.keys(input)
+    const values = Object.values(input)
+    const setConsult = columns.map(key => `${key} = ?`).join(", ")
+    
+    const sqlQr = `UPDATE  usersdb SET ${setConsult} WHERE id = UUID_TO_BIN(?);`
+    const [result]= await connection.query(sqlQr,[...values, id])
+    
+
+    if (result.length === 0) return null;
+
+    return result[0];
   }
 }

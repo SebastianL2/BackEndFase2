@@ -1,5 +1,5 @@
 import mysql from 'mysql2/promise'
-
+import bcrypt from 'bcrypt'
 const DEFAULT_CONFIG = {
   host: 'localhost',
   user: 'root',
@@ -21,7 +21,7 @@ export class UserModel {
     return users
   }
   static async validatePassword( password,recivedPassword ) {
-
+    console.log("password valdiada", recivedPassword , " data pas: ",password)
    
     return await bcrypt.compare(recivedPassword,password)
   }
@@ -61,21 +61,14 @@ export class UserModel {
    
   }
   static async  getByEmail({ email }) {
-    try {
-        const [rows] = await connection.query('SELECT * FROM usersdb WHERE email = ?', [email]);
-        
-        
-        connection.release();
-        
-        if (rows.length === 0) {
-            return null; 
-        }
-        
-        return rows[0]; 
-    } catch (error) {
-        console.error("Error al buscar usuario por email:", error);
-        return null; 
-    }
+    const [users] = await connection.query(
+      `SELECT BIN_TO_UUID(id) id, username, email, password,registeredAt,role FROM usersdb WHERE email =(?);`,
+      [email]
+    )
+
+    if (users.length === 0) return null
+
+    return users[0]
 }
 
 
