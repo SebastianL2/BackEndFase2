@@ -7,7 +7,7 @@ export class UserController {
       this.userModel = userModel
     }
     getAll  = async (req, res) => {
-      console.log('getAll')
+      
     const Users = await this.userModel.getAll()
     res.json(Users)
     }
