@@ -5,7 +5,7 @@ const DEFAULT_CONFIG = {
   user: 'root',
   port: 3306,
   password: '',
-  database: 'usersdb'
+  database: 'videosdb'
 }
 const connectionString = process.env.DATABASE_URL ?? DEFAULT_CONFIG
 
@@ -15,7 +15,7 @@ export class VideoModel {
   static async getAll () {
 
     const [users] = await connection.query(
-      'SELECT BIN_TO_UUID(id) id, username, email, password,registeredAt,role FROM usersdb;'
+      'SELECT BIN_TO_UUID(id) id, username, email, password,registeredAt,role FROM videosdb;'
     )
 
     return users
@@ -28,7 +28,7 @@ export class VideoModel {
 
   static async getById ({ id }) {
     const [users] = await connection.query(
-      `SELECT BIN_TO_UUID(id) id, username, email, password,registeredAt,role FROM usersdb WHERE id = UUID_TO_BIN(?);`,
+      `SELECT BIN_TO_UUID(id) id, username, email, password,registeredAt,role FROM videosdb WHERE id = UUID_TO_BIN(?);`,
       [id]
     )
 
@@ -44,25 +44,25 @@ export class VideoModel {
       const [{uuid}] = uuidResult
      
       await connection.query(
-        `INSERT INTO usersdb (ID, username, email, password, registeredAt, role)
+        `INSERT INTO videosdb (ID, username, email, password, registeredAt, role)
           VALUES (UUID_TO_BIN(?),?, ?, ?, ?, ?);`,
         [uuid, username, email, password, registeredAt, role]
       );
   
       
-      const [usersdb] = await connection.query(
+      const [videosdb] = await connection.query(
         `SELECT username, email, registeredAt, role
-          FROM usersdb
+          FROM videosdb
           WHERE email = ?;`,
         [email]
       );
   
-      return usersdb[0]; 
+      return videosdb[0]; 
    
   }
   static async  getByEmail({ email }) {
     try {
-        const [rows] = await connection.query('SELECT * FROM usersdb WHERE email = ?', [email]);
+        const [rows] = await connection.query('SELECT * FROM videosdb WHERE email = ?', [email]);
         
         
         connection.release();
@@ -82,7 +82,7 @@ export class VideoModel {
   static async delete ({ id }) {
    
     const [users] = await connection.query(
-      `DELETE  FROM usersdb WHERE id = UUID_TO_BIN(?);`,
+      `DELETE  FROM videosdb WHERE id = UUID_TO_BIN(?);`,
       [id]
     )
 
@@ -97,7 +97,7 @@ export class VideoModel {
     const values = Object.values(input)
     const setConsult = columns.map(key => `${key} = ?`).join(", ")
     
-    const sqlQr = `UPDATE  usersdb SET ${setConsult} WHERE id = UUID_TO_BIN(?);`
+    const sqlQr = `UPDATE  videosdb SET ${setConsult} WHERE id = UUID_TO_BIN(?);`
     const [result]= await connection.query(sqlQr,[...values, id])
     
 
