@@ -6,7 +6,7 @@
   "main": "app.js",
   "scripts": {
     "test": "cross-env NODE_ENV=test node --experimental-vm-modules node_modules/jest/bin/jest.js",
-    "start": "nodemon ./server.js",
+    "start": "nodemon ./serversDB/index.js",
     "start:mongo": "nodemon ./serversDB/index.js",
     "start:mysql": "nodemon ./serversDB/server-with-mysql.js"
   },

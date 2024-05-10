@@ -35,19 +35,8 @@ async function connect () {
 
 
 export class UserModel {
-  static async getAll ({ genre }) {
+  static async getAll () {
     const db = await connect()
-
-    if (genre) {
-      return db.find({
-        genre: {
-          $elemMatch: {
-            $regex: genre,
-            $options: 'i'
-          }
-        }
-      }).toArray()
-    }
 
     return db.find({}).toArray()
   }
