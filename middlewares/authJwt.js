@@ -11,7 +11,7 @@ export const verifyToken = async (req, res, next) => {
     const decoded = jwt.verify(token, config.SECRET);
    
     const id= decoded.id;
-
+    console.log("el id",id)
  
     const user = await UserModel.getById({id});
     if (!user) return res.status(404).json({ message: "No user found" });

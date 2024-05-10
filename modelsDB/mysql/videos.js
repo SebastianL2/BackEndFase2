@@ -15,7 +15,7 @@ export class VideoModel {
   static async getAll () {
 
     const [users] = await connection.query(
-      'SELECT BIN_TO_UUID(id) id, username, email, password,registeredAt,role FROM videosdb;'
+      'SELECT BIN_TO_UUID(id) id, tilte,description,credits,publicationDate,isPublic,uploader,year,links,director,duration,rate,poster,genre,url FROM videosdb;'
     )
 
     return users
@@ -38,20 +38,20 @@ export class VideoModel {
   }
 
   static async create({ input }) {
-    const { username, email, password, registeredAt, role } = input;
+    const { title,description,credits,publicationDate,isPublic,uploader,year,links,director,duration,rate,poster,genre,url } = input;
   
       const [uuidResult]= await connection.query('SELECT UUID() uuid;')
       const [{uuid}] = uuidResult
      
       await connection.query(
-        `INSERT INTO videosdb (ID, username, email, password, registeredAt, role)
-          VALUES (UUID_TO_BIN(?),?, ?, ?, ?, ?);`,
-        [uuid, username, email, password, registeredAt, role]
+        `INSERT INTO videosdb (id, title,description,credits,publicationDate,isPublic,uploader,year,links,director,duration,rate,poster,genre,url)
+          VALUES (UUID_TO_BIN(?),?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);`,
+        [uuid, title,description,credits,publicationDate,isPublic,uploader,year,links,director,duration,rate,poster,genre,url]
       );
-  
+      
       
       const [videosdb] = await connection.query(
-        `SELECT username, email, registeredAt, role
+        `SELECT  BIN_TO_UUID(id) id,title,description,credits,publicationDate,isPublic,uploader,year,links,director,duration,rate,poster,genre,url
           FROM videosdb
           WHERE email = ?;`,
         [email]
@@ -60,6 +60,23 @@ export class VideoModel {
       return videosdb[0]; 
    
   }
+
+
+  static async getByPrivates ({ public_private }) {
+
+    const [users] = await connection.query(
+      `SELECT BIN_TO_UUID(id) id, title,description,credits,publicationDate,isPublic,uploader,year,links,director,duration,rate,poster,genre,url FROM videosdb WHERE isPublic = (?);`,
+      [public_private]
+    )
+
+    if (users.length === 0) return null
+
+    return users[0]
+    
+  }
+
+  
+
   static async  getByEmail({ email }) {
     try {
         const [rows] = await connection.query('SELECT * FROM videosdb WHERE email = ?', [email]);
