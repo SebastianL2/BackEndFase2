@@ -37,7 +37,7 @@ export class VideoModel {
     return users[0]
   }
 
-  static async create({ input }) {
+  static async create({ input,cloudUrl  }) {
     const { title,description,credits,publicationDate,isPublic,uploader,year,links,director,duration,rate,poster,genre,url } = input;
   
       const [uuidResult]= await connection.query('SELECT UUID() uuid;')
